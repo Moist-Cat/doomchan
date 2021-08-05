@@ -1,0 +1,15 @@
+# Core
+django==3.1.7
+djangorestframework==3.12.4
+PIL==7.0.0
+
+# Needed by the doc views
+coreapi==2.3.3
+coreschema==0.0.4
+uritemplate==3.0.1
+
+# Cache system
+pylibmc==1.6.1
+
+# Internationalization
+django-rosetta
