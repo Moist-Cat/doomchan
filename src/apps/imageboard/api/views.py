@@ -14,7 +14,7 @@ class BoardViewSet(ReadOnlyModelViewSet):
     serializer_class = BoardSerializer
 
 class ThreadViewSet(ModelViewSet):
-    queryset = Thread.objects.all()
+    queryset = Thread.active.all()
     serializer_class = ThreadSerializer
     full_serializer_class = ThreadFullSerializer
     search_fields = ['board__slug', 'title', 'text']
@@ -30,6 +30,6 @@ class ThreadViewSet(ModelViewSet):
         return self.serializer_class
 
 class CommentViewSet(ModelViewSet):
-    queryset = Comment.objects.filter(active=True)
+    queryset = Comment.active.all()
     serializer_class = CommentSerializer
     search_fields = ['comment__thread', 'comment']

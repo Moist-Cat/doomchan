@@ -2,6 +2,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 import os
 
+class ActiveManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
 class Board(models.Model):
     verbose_name = models.CharField(
         max_length=20,
@@ -16,12 +20,13 @@ class Board(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        a= [str(thread.pk) for thread in self.threads.all()]
-        return f'{self.slug} : ({", ".join(a)})'
+        return f'{self.slug} : ({", ".join([str(thread.pk) for thread in self.threads.all()])})'
     
     
 
 class Thread(models.Model):
+    ip = models.GenericIPAddressField()
+
     title = models.CharField(
         max_length=50,
         unique=True,
@@ -34,6 +39,14 @@ class Thread(models.Model):
         related_name='threads',
         on_delete=models.CASCADE
     )
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True
+    )
+
+    objects = models.Manager()
+    active = ActiveManager()
+
     text = models.TextField(
         max_length=4000,
         help_text='OP text. Max 4K chars.'
@@ -43,7 +56,7 @@ class Thread(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        unique_posters = len(self.unique_posters(self.comments))
+        unique_posters = len(self.unique_posters_ips(self.comments))
         posters_str = f'by {unique_posters} posters.'
 
         # notice how we also count inactive comments here
@@ -55,7 +68,7 @@ class Thread(models.Model):
 
     # get unique ips
     def unique_posters_ips(self, comments):
-        unique_ips = set(comment.ip for comment in comments.filter(active=True))
+        unique_ips = set(comment.ip for comment in comments.filter(is_active=True))
         return unique_ips
     
     def save(self, *args, **kwargs):
@@ -63,8 +76,9 @@ class Thread(models.Model):
         # to asign the file to the correct folder.
         # See https://code.djangoproject.com/ticket/15590
         image_name = self.image.name.split('/')
-        image_name.insert(-1, self.board.slug)
-        self.image.name = "/".join(image_name)
+        if image_name[0] != self.board.slug:
+            image_name.insert(0, self.board.slug)
+            self.image.name = "/".join(image_name)
         return super().save(*args, **kwargs)
     
     def delete(self, *args, **kwargs):
@@ -76,6 +90,8 @@ class Thread(models.Model):
         return super().delete(*args, **kwargs)
 
 class Comment(models.Model):
+    ip = models.GenericIPAddressField()
+
     name = models.CharField(
         default=_('Anonymous'),
         max_length=14,
@@ -92,10 +108,19 @@ class Comment(models.Model):
         help_text=_('Comment. 2K chars.')
     )
     image = models.ImageField(blank=True)
-    ip = models.GenericIPAddressField()
-    active = models.BooleanField(default=True, db_index=True)
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True
+    )
+
+    objects = models.Manager()
+    active = ActiveManager()
 
     def __str__(self):
+        values = [str(self.name), self.ip, self.comment[:30]]
+        return ", ".join(values)
+    
+    def __repr__(self):
         return ", ".join([self.name, self.ip, self.comment[:30]])
 
     def save(self, *args, **kwargs):

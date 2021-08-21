@@ -10,8 +10,12 @@ db.*
 *.log
 secrets.json
 
-/site_static/
+/site_static/*
 !/site_static.gitkeep
+*/media/
+!/media.gitkeep
+*/static/
+!/static.gitkeep
 
 # app
 token.json

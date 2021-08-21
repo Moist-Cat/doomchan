@@ -2,37 +2,15 @@ from ._base import *
 
 DEBUG = False
 
+
 CACHES = {
-	  'default': {
-	    'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-	    'TIMEOUT': 60*60, # 1 hour,
-	    'LOCATION': get_secret('MEMCACHIER_SERVERS'),
-	    'OPTIONS': {
-	      'binary': True,
-	      'username': get_secret('MEMCACHIER_USERNAME'),
-	      'password': get_secret('MEMCACHIER_PASSWORD'),
-	      'behaviors': {
-	        # Enable faster IO
-	        'no_block': True,
-	        'tcp_nodelay': True,
-	        # Keep connection alive
-	        'tcp_keepalive': True,
-	        # Timeout settings
-	        'connect_timeout': 2000, # ms
-	        'send_timeout': 750 * 1000, # us
-	        'receive_timeout': 750 * 1000, # us
-	        '_poll_timeout': 2000, # ms
-	        # Better failover
-	        'ketama': True,
-	        'remove_failed': 1,
-	        'retry_timeout': 2,
-	        'dead_timeout': 30,
-	        }
-	    }
+    'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    'LOCATION': '127.0.0.1:11211',
     }
 }
 
-DEFAULT_AUTO_FIELD = "user"
+DEFAULT_AUTO_FIELD = "pk"
 
 X_FRAME_OPTIONS = "DENY"
 

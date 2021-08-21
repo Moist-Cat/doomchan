@@ -31,14 +31,6 @@ def get_secret(setting):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    '0.0.0.0',
-]
-
 
 # Application definition
 
@@ -75,7 +67,7 @@ ROOT_URLCONF = 'doomchan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,7 +92,6 @@ DATABASES = {
         'NAME': get_secret('DATABASE_NAME'),
         'USER': get_secret('DATABASE_USER'),
         'PASSWORD': get_secret('DATABASE_PASSWORD'),
-        'HOST': get_secret('DATABASE_HOST'),
     }
 }
 
@@ -154,23 +145,11 @@ LOCALE_PATHS = [
 
 
 # media
-STATIC_URL = f'/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-EMAIL_HOST = get_secret('EMAIL_HOST')
-EMAIL_PORT = get_secret('EMAIL_PORT')
-EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
-
-# Cache
-CACHES = {
-          'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
-          }
-    }
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Rest Framework
 REST_FRAMEWORK = {
