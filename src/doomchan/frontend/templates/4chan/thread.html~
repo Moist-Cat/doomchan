@@ -1,0 +1,11 @@
+{% extends "4chan/site.html" %}
+{% block content %}
+{% include "4chan/post.html" %}
+
+<span class="comments">
+    {% for comment in thread["comments"] %}
+        {% include "4chan/comment.html" %}
+    {% endfor %}
+</span>
+	
+{% endblock %}

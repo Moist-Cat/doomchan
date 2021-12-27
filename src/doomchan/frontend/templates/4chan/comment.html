@@ -1,0 +1,37 @@
+<div class="postContainer replyContainer">
+  <div class="sideArrows">&gt;&gt;
+  </div>
+  <div class="post reply">
+  {% if "image" in comment and comment["image"] is not none %}
+      <div class="file">
+        <div class="fileInfo">
+          <span class="fileText">File:
+            <a href="{{ comment['image'] }}" class='permalink'>{{ comment["image"] }}
+            </a>
+          </span>
+        </div>
+        <a class="fileThumb" href="{{ comment['image'] }}" target="_blank">
+          <img src="{{ comment['image'] }}" style="height: 156px; width: 120px;">
+        </a>
+      </div>
+  {% endif %}
+    <div class="postInfo desktop">
+      <input type="checkbox" name="{{ comment['pk'] }}" value="delete">
+      <span class="subject">
+      </span>
+      <span class="nameBlock">
+        <span class="name">{{ comment["name"] }}
+        </span>
+       <span class="dateTime" title="{{ comment['created'] }}">{{ comment["created"] }}
+      </span>
+       <span class="posteruid">No.
+          <span class="hand" title="Quick Reply">{{ comment["pk"] }}
+          </span>
+        </span>
+      </span>
+    </div>
+    <blockquote class="postMessage">
+	    {{ comment["comment"] }}
+    </blockquote>
+  </div>
+</div>

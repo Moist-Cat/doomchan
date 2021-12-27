@@ -1,0 +1,71 @@
+{% extends "4chan/site.html" %}
+{% block title %}doomchan - /{{ title }}/{% endblock %}
+{% block content %}
+   <hr>
+   <span class="navLinks">
+	   <span class="btn-wrap">
+		   [<a href="/{{ title }}" class="button">Index</a>]
+           </span>
+ 	   <span class="btn-wrap">
+		   [<a href="/boards/{{ title }}" id="refresh" class="button">Refresh</a>]
+           </span>
+ 
+   </span>
+    <form name="delform" id="delform" action="https://sys.4chan.org/b/imgboard.php" method="post">
+      <div class="board" id='content'>
+
+      </div>
+      <hr>
+    </div>
+    <div style="float: right;">
+      <div class="deleteform desktop">
+        <input type="hidden" name="mode" value="usrdel">Delete Post [
+        <input type="checkbox" name="onlyimgdel" value="on">File Only] Password
+        <input type="password" id="delPassword" name="pwd" maxlength="8">
+        <input type="submit" value="Delete">
+        <input type="button" value="Report" onclick="var o=document.getElementsByTagName('input');for(var i=0;i
+        <o.length;i++)if(o[i].type=='checkbox' && o[i].checked && o[i].value=='delete') return reppop('https://sys.4chan.org/b/imgboard.php?mode=report&amp;no='+o[i].name.replace(/[a-z]+/,'')+'');">
+      </div>
+    </div>
+  </form>
+  {% for thread in threads %}
+  {{ thread }}
+      {% include "4chan/post.html" %}
+  {% endfor %}
+  <div class="pagelist desktop">
+    <div class="prev">
+      {% if prev is not none %}
+          <a href="/boards/{{ title }}/catalog/{{ prev }}">Previous</a>
+      {% else %}
+          <span>Previous
+          </span>
+      {% endif %}    </div>
+    <div class="pages">
+      {% for _page in range(pages) %}
+          [
+          {% if _page == page %}
+          <strong>
+          {% endif %}
+            <a href="/boards/{{ title }}/catalog/{{ page }}">{{ page }}</a>
+          {% if _page == page %}
+          </strong>
+          {% endif %}
+          ]
+       {% endfor %}
+    </div>
+    <div class="next">
+      {% if nxt is not none %}
+          <a href="/boards/{{ title }}/catalog/{{ nxt }}">Next</a>
+      {% else %}
+          <span>Next
+        </span>
+      {% endif %}
+      <a>
+    </div>
+    <div class="pages cataloglink">
+      <a href="/boards/{{ title }}/catalog">Catalog
+      </a>
+    </div>
+  </div>
+{% endblock %}
+

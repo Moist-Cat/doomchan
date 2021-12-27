@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}doomchan - /{{ title }}/{% endblock %}
+{% block body %}
+<div>
+  <div id="boardNavDesktop" class="desktop">
+    {% include "4chan/board_links.html" %}
+  </div>
+  <div class="boardBanner">
+    <a href="#">
+      <img class="title" src="/logos/logo.png" rel="jpg" alt="4chan">
+    </a>
+    <div class="boardTitle">/{{ title }}/ - {{ board_vname }}
+    </div>
+    <div class="boardSubtitle">The stories and information posted here are artistic works of fiction and falsehood.
+      <br>Only a fool would take anything posted here as fact.
+    </div>
+  </div>
+  <form name="post" method="post" action="https://doomchan.com/{% if thread is defined %}comment{% else %}thread{% endif %}/" enctype="multipart/form-data">
+	<input name="board" type="hidden" value="{{ title }}">
+	<table class="postForm" id="postForm" style="display: table;">
+		<tbody>
+		  {% if thread is defined %}
+		  <input name="thread" type="hidden" value="{{ thread['pk'] }}">
+			  <tr data-type="Comment">
+				  <td>
+					  Comment
+				  </td>
+				  <td>
+					  <textarea name="comment" cols="48" rows="4" wrap="soft"></textarea>
+		                  </td>
+
+                          </tr>
+		{% else %}
+			  <tr data-type=Subject>
+				  <td>
+					  Subject
+				  </td>
+				  <td>
+					  <input name="title" type="text">
+		                  </td>
+         		  </tr>
+			  <tr data-type="Comment">
+				  <td>
+					  Comment
+				  </td>
+				  <td>
+					  <textarea name="text" cols="48" rows="4" wrap="soft"></textarea>
+		                  </td>
+   		         </tr>
+        	  {% endif %}
+			 <tr data-type="File">
+				 <td>
+					 File
+				 </td>
+				 <td>
+					 <input id="postFile" name="image" type="file">
+		         </td>
+				  <td>
+					  <input name="submit" type="submit" value="Post">
+				  </td>
+	         </tr>
+		</tbody>
+	</table>
+</form>
+{% block content %}
+{% endblock %}
+  <div id="boardNavDesktopFoot" class="desktop">
+      {% include "4chan/board_links.html" %}
+  </div>
+  <div id="absbot" class="absBotText">
+    <span class="absBotDisclaimer">-
+      <a href="http://www.2chan.net/" target="_top" rel="nofollow">futaba
+      </a> +
+      <a href="//www.4chan.org/" target="_top">yotsuba
+      </a> -
+      <br>All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.
+    </span>
+  </div>
+</div>
+<div id="bottom">
+</div>
+</div>
+{% endblock %}
+
+{% block domready %}
+
+{% endblock %}

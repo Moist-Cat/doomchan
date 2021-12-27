@@ -1,0 +1,43 @@
+<div class="thread">
+  <div class="postContainer opContainer">
+    <div class="post op">
+      <div class="file">
+        <div class="fileInfo">
+          <span class="fileText">File:
+            <a href="{{ thread['image'] }}" class='permalink'>{{thread["image"]}}
+            </a>
+          </span>
+        </div>
+        <a class="fileThumb" href="{{ thread['image'] }}" target="_blank">
+          <img src="{{ thread['image'] }}" style="height: 206px; width: 250px;">
+        </a>
+      </div>
+      <div class="postInfo desktop">
+        <input type="checkbox" name="{{ thread['id'] }}" value="delete">
+        <span class="subject">
+          <span class="title">{{ thread['title'] }}
+          </span>
+        </span>
+        <span class="nameBlock">
+          <span class="name">{{ thread['name'] }}
+          </span>
+        </span>
+        <span class="dateTime" title="{{ thread['created'] }}">{{ thread['created'] }}
+        </span>&nbsp;
+        <span class="postNum">
+          <span><a class="comment permalink" href="/boards/{{ title }}/thread/{{ thread['id'] }}" target='_blank'>No.</a>
+          </span>
+          <span class="comment replylink" title="Quick Reply">{{ thread["id"] }}
+          </span>
+        </span>
+      <blockquote class="postMessage">
+          <span>
+          {{ thread["text"] }}
+          </span>
+      </blockquote>
+
+      </div>
+    </div>
+</div>
+<hr style='clear:both'>
+

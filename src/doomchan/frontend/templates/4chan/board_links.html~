@@ -1,0 +1,13 @@
+[
+    <a href="/a/" title="Anime & Manga">a
+    </a> /
+    <a href="/b/" title="Random">b
+    </a> /
+    <a href="/g/" title="Technology">g
+    </a>]
+    <span id="navbotright">[
+      <a href="javascript:void(0);" id="settingsWindowLinkBot">Settings
+      </a>] [
+      <a href="//www.doomchan.com/" target="_top">Home
+      </a>]
+    </span>

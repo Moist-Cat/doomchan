@@ -2,19 +2,24 @@
 bin/
 lib/
 lib64/
+!/ssl.gitkeep
+ssl/**
+!/logs.gitkeep
+logs/**
 
 __pycache__/
 
 *.cfg
 db.*
 *.log
+*.error
 secrets.json
 
-/site_static/*
+**/site_static/**
 !/site_static.gitkeep
-*/media/
+**/media/**
 !/media.gitkeep
-*/static/
+**/static/**
 !/static.gitkeep
 
 # app
