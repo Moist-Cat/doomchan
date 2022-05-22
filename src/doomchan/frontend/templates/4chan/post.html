@@ -13,7 +13,7 @@
         </a>
       </div>
       <div class="postInfo desktop">
-        <input type="checkbox" name="{{ thread['id'] }}" value="delete">
+        <input type="checkbox" name="{{ thread['pk'] }}" value="delete">
         <span class="subject">
           <span class="title">{{ thread['title'] }}
           </span>
@@ -25,14 +25,14 @@
         <span class="dateTime" title="{{ thread['created'] }}">{{ thread['created'] }}
         </span>&nbsp;
         <span class="postNum">
-          <span><a class="comment permalink" href="/boards/{{ title }}/thread/{{ thread['id'] }}" target='_blank'>No.</a>
+          <span><a class="comment permalink" href="/boards/{{ title }}/thread/{{ thread['pk'] }}" target='_blank'>No.</a>
           </span>
-          <span class="comment replylink" title="Quick Reply">{{ thread["id"] }}
+          <span class="comment replylink" title="Quick Reply">{{ thread["pk"] }}
           </span>
         </span>
       <blockquote class="postMessage">
           <span>
-          {{ thread["text"] }}
+          {{ thread["text"] | render | safe }}
           </span>
       </blockquote>
 

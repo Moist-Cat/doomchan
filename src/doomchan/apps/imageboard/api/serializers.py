@@ -12,14 +12,14 @@ class ThreadSerializer(ModelSerializer):
 
     class Meta:
         model = Thread
-        exclude = ["ip"]
+        fields = ["pk", "name", "title", "text", "board", "image", "created"]
 
 class ThreadFullSerializer(ThreadSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Thread
-        fields = ["pk", "name", "title", "text", "comments", "board", "image"]
+        fields = ["pk", "name", "title", "text", "comments", "board", "image", "created"]
     
     def validate(self, attrs):
         board = attrs["board"]

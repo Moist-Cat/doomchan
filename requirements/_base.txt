@@ -17,3 +17,7 @@ python-memcached>=1.*
 
 # Internationalization
 django-rosetta
+
+# rendering text
+matplotlib
+markdown

@@ -24,3 +24,7 @@ secrets.json
 
 # app
 token.json
+
+#
+*~
+share/

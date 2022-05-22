@@ -31,7 +31,7 @@
       </span>
     </div>
     <blockquote class="postMessage">
-	    {{ comment["comment"] }}
+	    {{ comment["comment"] | render | linebreaks |safe}}
     </blockquote>
   </div>
 </div>

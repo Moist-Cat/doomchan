@@ -15,11 +15,11 @@
       <br>Only a fool would take anything posted here as fact.
     </div>
   </div>
-  <form name="post" method="post" action="https://doomchan.com/{% if thread is not none %}comment{% else %}thread{% endif %}/" enctype="multipart/form-data">
+  <form name="post" method="post" action="https://doomchan.com/{% if thread is defined %}comment{% else %}thread{% endif %}/" enctype="multipart/form-data">
 	<input name="board" type="hidden" value="{{ title }}">
 	<table class="postForm" id="postForm" style="display: table;">
 		<tbody>
-		  {% if thread is not none %}
+		  {% if thread is defined %}
 		  <input name="thread" type="hidden" value="{{ thread['pk'] }}">
 			  <tr data-type="Comment">
 				  <td>
